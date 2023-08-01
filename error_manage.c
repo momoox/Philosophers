@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 20:20:01 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/01 12:04:39 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:14:34 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ int	error_manage(t_info *info, int error)
 		free(info->p);
 		free(info);
 	}
+	return (0);
 }

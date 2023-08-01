@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 11:38:55 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/01 12:00:28 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:13:39 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ int	timestamp(void)
 
 void	print_actions(char *str, t_info *info)
 {
-	printf("%d %d %s\n", timestamp(NULL), info->p->id, str);
+	printf("%d %d %s\n", timestamp(), info->p->id, str);
 }

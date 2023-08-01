@@ -6,13 +6,13 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 19:24:17 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/01 12:06:47 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:11:00 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	create_threads(t_info *info)
+int	create_threads(t_info *info)
 {
 	int	philo;
 	int	i;
@@ -35,6 +35,7 @@ void	create_threads(t_info *info)
 			return (1);
 		philo--;
 	}
+	return (0);
 }
 
 void	mutex_init(t_info *info)
