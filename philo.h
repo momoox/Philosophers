@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/22 17:51:34 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/01 12:14:25 by mgeisler         ###   ########.fr       */
+/*   Created: 2023/08/07 14:21:28 by mgeisler          #+#    #+#             */
+/*   Updated: 2023/08/09 14:19:41 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,47 +20,63 @@
 
 typedef struct s_philo
 {
-	int			id;
-	int			ate;
-	int			last_meal;
-	int			death_time;
-	pthread_t	thread_id;
-}				t_philo;
+	int				id;
+	int				last_eat;
+	int				m_count;
+	pthread_t		thread_id;
+	pthread_mutex_t	*fork_l;
+	pthread_mutex_t	*fork_r;
+	struct s_data	*data;
+}					t_philo;
 
-typedef struct s_info
+typedef struct s_data
 {
 	int				nb_philo;
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
-	int 			nb_eat;
+	int				nb_meals;
 	int				dead_philo;
 	int				start_time;
-	pthread_mutex_t	fork_l;
-	pthread_mutex_t	fork_r;
+	pthread_t		*thread;
+	pthread_mutex_t	*fork_mutex;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	death;
 	t_philo			*p;
-}					t_info;
+}					t_data;
 
-int		main(int argc, char **argv);
-//init_args
-int		is_int(char *str);
-int		check_params(t_info *info, int argc, char **argv);
-void	mutex_init(t_info *info);
-int		create_threads(t_info *info);
-//routine
-void	*routine(void *info);
+//check_args
+int		check_args(int argc, char **argv);
+int		max_min(char *str);
+
+//init
+int		init_all(t_data *data, char **argv);
+int		init_data(t_data *data, char **argv);
+int		init_philo(t_data *data);
+int		init_mutex(t_data *data);
+
+//start_threads
+void	start_threads(void *args);
+void	welfare_check(void *args);
+int		check_death(t_philo *philo);
+void	*routine(void *arguments);
+
 //philo_actions
-// int		philo_takes_forks(t_info *info);
-// void	philo_eats(t_info *info);
-// void	philo_sleeps(t_info *info);
-// void	philo_thinks(t_info *info);
-// int		philo_is_dead(t_info *info);
+void	philo_takes_forks(t_philo *philo);
+void	philo_eats(t_philo *philo);
+void	philo_sleeps(t_philo *philo);
+void	philo_thinks(t_philo *philo);
+
 //utils
 int		ft_atoi(char *str);
+void	ft_usleep(int i);
+void	print_actions(char *str, t_philo *philo);
 int		timestamp(void);
-void	print_actions(char *str, t_info *info);
+
 //errors
-int		error_manage(t_info *info, int error);
+int		error_manage(int error);
+
+//main
+void	free_all(t_data *data);
 
 #endif

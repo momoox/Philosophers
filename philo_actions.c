@@ -5,34 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 11:51:59 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/01 12:12:38 by mgeisler         ###   ########.fr       */
+/*   Created: 2023/08/07 16:08:56 by mgeisler          #+#    #+#             */
+/*   Updated: 2023/08/08 17:49:41 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// int	philo_takes_forks(t_info *info)
-// {
+void	philo_takes_forks(t_philo *philo)
+{
+	pthread_mutex_lock(philo->fork_l);
+	print_actions("has taken a fork", philo);
+	pthread_mutex_lock(philo->fork_r);
+	print_actions("has taken a fork", philo);
+}
 
-// }
+void	philo_eats(t_philo *philo)
+{
+	print_actions("is eating", philo);
+	philo->last_eat = timestamp() - philo->data->start_time;
+	philo->m_count++;
+	ft_usleep(philo->data->t_eat);
+	pthread_mutex_unlock(philo->fork_l);
+	pthread_mutex_unlock(philo->fork_r);
+}
 
-// void	philo_eats(t_info *info)
-// {
+void	philo_sleeps(t_philo *philo)
+{
+	print_actions("is sleeping", philo);
+	ft_usleep(philo->data->t_sleep);
+}
 
-// }
-
-// void	philo_sleeps(t_info *info)
-// {
-
-// }
-
-// void	philo_thinks(t_info *info)
-// {
-// 	print_message("is thinking", info);
-// }
-
-// int	philo_is_dead(t_info *info)
-// {
-
-// }
+void	philo_thinks(t_philo *philo)
+{
+	print_actions("is thinking", philo);
+}
