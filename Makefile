@@ -6,14 +6,14 @@
 #    By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/07 14:21:10 by mgeisler          #+#    #+#              #
-#    Updated: 2023/08/08 12:32:05 by mgeisler         ###   ########.fr        #
+#    Updated: 2023/08/14 20:31:26 by mgeisler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRCS = main.c check_args.c init.c start_threads.c philo_actions.c \
-		error_manage.c utils.c \
+		error_manage.c utils.c monitoring.c\
 
 OBJECTS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:30:55 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/08 18:14:58 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:49:32 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ int	init_philo(t_data *data)
 	{
 		data->p[i].data = data;
 		data->p[i].id = i + 1;
-		data->p[i].last_eat = 0;
+		data->p[i].last_eat = data->t_die;
 		data->p[i].m_count = 0;
 		data->p[i].fork_l = &data->fork_mutex[i];
-		data->p[i].fork_r = &data->fork_mutex[(i + 1)];
+		if (data->nb_philo != 1)
+			data->p[i].fork_r = &data->fork_mutex[(i + 1)];
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:22:54 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/10 18:06:01 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:38:46 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 		error_manage(3);
 		return (1);
 	}
-	welfare_check(&data);
 	start_threads(&data);
+	welfare_check(&data);
 	free_all(&data);
 }

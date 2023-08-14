@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:21:28 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/09 14:19:41 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:59:55 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,14 @@ int		init_philo(t_data *data);
 int		init_mutex(t_data *data);
 
 //start_threads
-void	start_threads(void *args);
-void	welfare_check(void *args);
-int		check_death(t_philo *philo);
 void	*routine(void *arguments);
+int		fork_check(t_philo *philo);
+void	start_threads(void *args);
+
+//monitoring
+int		check_meal(t_philo *philo);
+int		check_death_meals(t_philo *philo);
+void	welfare_check(t_data *data);
 
 //philo_actions
 void	philo_takes_forks(t_philo *philo);
