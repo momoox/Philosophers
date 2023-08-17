@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:21:28 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/17 22:22:14 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/17 23:08:44 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	philo_thinks(t_philo *philo);
 int		ft_atoi(char *str);
 void	ft_usleep(int i, t_data *data);
 void	print_actions(char *str, t_philo *philo);
+int 	ft_strlen(char *str);
 int		timestamp(void);
 
 //errors
