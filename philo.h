@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:21:28 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/14 19:59:55 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:22:14 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	pthread_mutex_t	*fork_l;
 	pthread_mutex_t	*fork_r;
+	pthread_mutex_t	eating;
 	struct s_data	*data;
 }					t_philo;
 
@@ -36,12 +37,14 @@ typedef struct s_data
 	int				t_eat;
 	int				t_sleep;
 	int				nb_meals;
-	int				dead_philo;
 	int				start_time;
+	int				finished_p;
+	int				stop;
 	pthread_t		*thread;
 	pthread_mutex_t	*fork_mutex;
-	pthread_mutex_t	mutex;
-	pthread_mutex_t	death;
+	pthread_mutex_t	stopit;
+	pthread_mutex_t	meal;
+	pthread_mutex_t	finished;
 	t_philo			*p;
 }					t_data;
 
@@ -61,9 +64,10 @@ int		fork_check(t_philo *philo);
 void	start_threads(void *args);
 
 //monitoring
-int		check_meal(t_philo *philo);
-int		check_death_meals(t_philo *philo);
-void	welfare_check(t_data *data);
+int		check_meal(t_data *data);
+int		check_death(t_philo *philo);
+int		check_stop(t_data *data);
+void	*welfare_check(t_data *data);
 
 //philo_actions
 void	philo_takes_forks(t_philo *philo);
@@ -73,7 +77,7 @@ void	philo_thinks(t_philo *philo);
 
 //utils
 int		ft_atoi(char *str);
-void	ft_usleep(int i);
+void	ft_usleep(int i, t_data *data);
 void	print_actions(char *str, t_philo *philo);
 int		timestamp(void);
 

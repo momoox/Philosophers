@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:34:30 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/09 13:32:18 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:42:48 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,31 @@ int	timestamp(void)
 
 void	print_actions(char *str, t_philo *philo)
 {
-	printf("%d %d %s\n", timestamp() - philo->data->start_time, philo->id, str);
+	if (check_stop(philo->data) == 0)
+		printf("%d %d %s\n", timestamp()
+			- philo->data->start_time, philo->id, str);
 }
 
-void	ft_usleep(int i)
+void	ft_usleep(int i, t_data *data)
 {
 	long int	time;
 
+	if (check_stop(data) == 1)
+		return ;
 	time = timestamp();
 	while (timestamp() - time < i)
-		usleep(i / 10);
+	{
+		if (check_stop(data) == 1)
+			return ;
+		usleep(500);
+	}
 }
 
 int	ft_atoi(char *str)
 {
-	int	i;
-	int	sign;
-	int	result;
+	int		i;
+	int		sign;
+	long	result;
 
 	i = 0;
 	sign = 1;

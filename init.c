@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:30:55 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/14 18:49:32 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:22:41 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	init_mutex(t_data *data)
 	{
 		pthread_mutex_init(&(data->fork_mutex[i]), NULL);
 	}
-	pthread_mutex_init(&(data->mutex), NULL);
-	pthread_mutex_init(&(data->death), NULL);
+	pthread_mutex_init(&data->stopit, NULL);
+	pthread_mutex_init(&data->finished, NULL);
 	return (0);
 }
 
@@ -37,13 +37,14 @@ int	init_philo(t_data *data)
 		return (1);
 	while (i < data->nb_philo)
 	{
+		pthread_mutex_init(&data->p[i].eating, NULL);
 		data->p[i].data = data;
 		data->p[i].id = i + 1;
 		data->p[i].last_eat = data->t_die;
 		data->p[i].m_count = 0;
 		data->p[i].fork_l = &data->fork_mutex[i];
 		if (data->nb_philo != 1)
-			data->p[i].fork_r = &data->fork_mutex[(i + 1)];
+			data->p[i].fork_r = &data->fork_mutex[(i + 1) % data->nb_philo];
 		i++;
 	}
 	return (0);
@@ -60,7 +61,8 @@ int	init_data(t_data *data, char **argv)
 	else
 		data->nb_meals = -1;
 	data->start_time = -1;
-	data->dead_philo = 0;
+	data->stop = 0;
+	data->finished_p = 0;
 	return (0);
 }
 

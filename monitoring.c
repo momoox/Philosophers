@@ -6,55 +6,77 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:55:03 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/14 20:35:48 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:32:55 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_meal(t_philo *philo)
+int	check_meal(t_data *data)
 {
 	int	i;
 
 	i = -1;
-	while (i++ < philo->data->nb_philo)
+	if (data->nb_meals == -1)
+		return (0);
+	while (++i < data->nb_philo)
 	{
-		if (philo->m_count < philo->data->nb_meals)
+		pthread_mutex_lock(&data->p[i].eating);
+		if (data->p[i].m_count <= data->nb_meals)
+		{
+			pthread_mutex_unlock(&data->p[i].eating);
 			return (0);
-		else
-			return (1);
+		}
+		pthread_mutex_unlock(&data->p[i].eating);
 	}
-	return (0);
+	pthread_mutex_lock(&data->stopit);
+	data->stop = 1;
+	pthread_mutex_unlock(&data->stopit);
+	return (1);
 }
 
 int	check_death(t_philo *philo)
 {
-	if (timestamp() - philo->last_eat >= philo->data->t_die)
+	pthread_mutex_lock(&philo->eating);
+	pthread_mutex_lock(&philo->data->stopit);
+	if ((timestamp() - philo->data->start_time)
+		- philo->last_eat >= philo->data->t_die)
 	{
-		pthread_mutex_lock(&philo->data->death);
-		philo->data->dead_philo = 1;
-		pthread_mutex_unlock(&philo->data->death);
+		philo->data->stop = 1;
+		pthread_mutex_unlock(&philo->data->stopit);
+		pthread_mutex_unlock(&philo->eating);
 		printf("%d %d died\n", timestamp()
 			- philo->data->start_time, philo->id);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->eating);
+	pthread_mutex_unlock(&philo->data->stopit);
 	return (0);
 }
 
-void	welfare_check(t_data *data)
+int	check_stop(t_data *data)
+{
+	pthread_mutex_lock(&data->stopit);
+	if (data->stop == 1)
+	{
+		pthread_mutex_unlock(&data->stopit);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->stopit);
+	return (0);
+}
+
+void	*welfare_check(t_data *data)
 {
 	int	i;
 
-	i = -1;
+	if (data->nb_philo == 1)
+		return (NULL);
 	while (1)
 	{
-		while (i++ < data->nb_philo)
-		{
-			if (check_death(&data->p[i]) == 1)
-				return ;
-			if (check_meal(&data->p[i]) == 1)
-				return ;
-		}
 		i = -1;
+		while (++i < data->nb_philo)
+			if (check_death(&data->p[i]) == 1 || check_meal(data) == 1)
+				return (NULL);
 	}
 }
