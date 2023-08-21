@@ -6,7 +6,7 @@
 #    By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/07 14:21:10 by mgeisler          #+#    #+#              #
-#    Updated: 2023/08/21 19:54:08 by mgeisler         ###   ########.fr        #
+#    Updated: 2023/08/21 19:57:17 by mgeisler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS = main.c check_args.c init.c start_threads.c philo_actions.c \
 
 OBJECTS = $(SRCS:.c=.o)
 
-GCC = gcc -Wall -Werror -Wextra -g3 -fsanitize=thread 
+GCC = gcc -Wall -Werror -Wextra -g3
 
 all : $(NAME)
 

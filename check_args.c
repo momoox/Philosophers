@@ -6,18 +6,11 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:31:15 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/17 23:12:42 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:56:58 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// int	max_min(char *str)
-// {
-// 	if (ft_atoi(str) < 0)
-// 		return (1);
-// 	return (0);
-// }
 
 int	is_int(char *str)
 {
