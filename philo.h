@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:21:28 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/21 19:07:20 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:55:22 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,45 +49,46 @@ typedef struct s_data
 	t_philo			*p;
 }					t_data;
 
-//check_args
+/*check_args*/
 int		check_args(int argc, char **argv);
 int		max_min(char *str);
 
-//init
+/*init*/
 int		init_all(t_data *data, char **argv);
 int		init_data(t_data *data, char **argv);
 int		init_philo(t_data *data);
 int		init_mutex(t_data *data);
 
-//start_threads
+/*start_threads*/
 void	*routine(void *arguments);
 int		fork_check(t_philo *philo);
 void	start_threads(void *args);
 int		check_start(t_data *data);
 
-//monitoring
+/*monitoring*/
 int		check_meal(t_data *data);
 int		check_death(t_philo *philo);
 int		check_stop(t_data *data);
 void	*welfare_check(t_data *data);
 
-//philo_actions
+/*philo_actions*/
 void	philo_takes_forks(t_philo *philo);
 void	philo_eats(t_philo *philo);
 void	philo_sleeps(t_philo *philo);
 void	philo_thinks(t_philo *philo);
 
-//utils
+/*utils*/
 int		ft_atoi(char *str);
 void	ft_usleep(int i, t_data *data);
 void	print_actions(char *str, t_philo *philo);
+int		ft_strlen(char *str);
 int		timestamp(void);
 
-//errors
+/*errors*/
 int		error_manage(int error);
 
-//main
+/*main*/
 void	free_all(t_data *data);
-void	free_mutex(t_data *data);
+void	free_next(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:34:30 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/17 22:42:48 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/17 23:08:32 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ void	ft_usleep(int i, t_data *data)
 	}
 }
 
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
 int	ft_atoi(char *str)
 {
 	int		i;
@@ -65,5 +75,7 @@ int	ft_atoi(char *str)
 		result = result * 10 + (str[i] - '0');
 		i++;
 	}
+	if (result < 0 || result > 2147483647 || i > 10)
+		return (-1);
 	return (sign * result);
 }
