@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:55:03 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/17 22:32:55 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:09:43 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ void	*welfare_check(t_data *data)
 
 	if (data->nb_philo == 1)
 		return (NULL);
+	pthread_mutex_lock(&data->start);
+	data->start_time = timestamp();
+	pthread_mutex_unlock(&data->start);
 	while (1)
 	{
 		i = -1;

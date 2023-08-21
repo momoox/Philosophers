@@ -6,18 +6,18 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:31:15 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/17 23:12:42 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/07 18:37:06 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// int	max_min(char *str)
-// {
-// 	if (ft_atoi(str) < 0)
-// 		return (1);
-// 	return (0);
-// }
+int	max_min(char *str)
+{
+	if (ft_atoi(str) > 2147483647 || ft_atoi(str) < -2147483648)
+		return (1);
+	return (0);
+}
 
 int	is_int(char *str)
 {
@@ -44,7 +44,10 @@ int	check_args(int argc, char **argv)
 	{
 		if (is_int(argv[i]) == 1)
 			return (1);
+		if (max_min(argv[i]) == 1)
+			return (1);
 		i++;
 	}
 	return (0);
 }
+//segfault la dedans au bout du 3e passage

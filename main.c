@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:22:54 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/17 23:16:38 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:07:10 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,14 @@ void	free_all(t_data *data)
 	data->fork_mutex = NULL;
 	free(data->p);
 	data->p = NULL;
+	free_mutex(data);
+}
+
+void	free_mutex(t_data *data)
+{
 	pthread_mutex_destroy(&data->stopit);
 	pthread_mutex_destroy(&data->finished);
+	pthread_mutex_destroy(&data->start);
 }
 
 int	main(int argc, char **argv)
@@ -47,11 +53,13 @@ int	main(int argc, char **argv)
 
 	if (check_args(argc, argv) == 1)
 	{
+		free_all(&data);
 		error_manage(2);
 		return (1);
 	}
-	if (init_all(&data, argv) == 1)
+	if (init_all(&data, argv) != 0)
 	{
+		free_all(&data);
 		error_manage(3);
 		return (1);
 	}

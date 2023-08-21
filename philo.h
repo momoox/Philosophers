@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:21:28 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/17 23:08:44 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:07:20 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_data
 	pthread_mutex_t	stopit;
 	pthread_mutex_t	meal;
 	pthread_mutex_t	finished;
+	pthread_mutex_t	start;
 	t_philo			*p;
 }					t_data;
 
@@ -62,6 +63,7 @@ int		init_mutex(t_data *data);
 void	*routine(void *arguments);
 int		fork_check(t_philo *philo);
 void	start_threads(void *args);
+int		check_start(t_data *data);
 
 //monitoring
 int		check_meal(t_data *data);
@@ -79,7 +81,6 @@ void	philo_thinks(t_philo *philo);
 int		ft_atoi(char *str);
 void	ft_usleep(int i, t_data *data);
 void	print_actions(char *str, t_philo *philo);
-int 	ft_strlen(char *str);
 int		timestamp(void);
 
 //errors
@@ -87,5 +88,6 @@ int		error_manage(int error);
 
 //main
 void	free_all(t_data *data);
+void	free_mutex(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 14:27:18 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/08/17 23:11:44 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:44:24 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	error_manage(int error)
 		printf("Malloc error.\n");
 	else if (error == 2)
 	{
-		printf("\nArguments error, please execute as followed:\n");
-		printf("\n./philo [nb of philosphers] [time to die] [time to sleep]\n");
-		printf("\nYou can had [nb of time each philo must eat]\n");
+		printf("Arguments error, please execute as followed:\n");
+		printf("./philo [nb of philosphers] [time to die] [time to sleep]\n");
+		printf("You can had [nb of time each philo must eat]\n");
 	}
 	else if (error == 3)
-		printf("\nInit error.\n");
+		printf("Init error.\n");
 	else if (error == 4)
-		printf("\nCreation threads error.\n");
+		printf("Creation threads error.\n");
 	return (0);
 }
